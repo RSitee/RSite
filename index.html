@@ -205,13 +205,13 @@
       { r: 48,  g: 0,  b: 80  }, // Dark Purple
       { r: 139, g: 0,  b: 69  }, // Dark Pink
       { r: 120, g: 0,  b: 0   }, // Dark Red
-      { r: 139, g: 0,  b: 69  }, 
-      { r: 48,  g: 0,  b: 80  }  
+      { r: 139, g: 0,  b: 69  }, // Dark Pink again
+      { r: 48,  g: 0,  b: 80  }  // Dark Purple again
     ];
 
-    let step = 0;       
-    let progress = 0;   
-    const speed = 15;
+    let step = 0;
+    let progress = 0;
+    const speed = 0.005;
 
     function lerp(start, end, t) {
       return start + (end - start) * t;
@@ -219,7 +219,7 @@
 
     function animateBackground() {
       let c1 = colors[step];
-      let c2 = colors[step + ];
+      let c2 = colors[step + 1];
 
       let r = Math.floor(lerp(c1.r, c2.r, progress));
       let g = Math.floor(lerp(c1.g, c2.g, progress));
