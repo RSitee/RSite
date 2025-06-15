@@ -127,51 +127,7 @@
     <p>join the discord to be notified when we're live.</p>
     <a href="https://discord.gg/YOURSERVER" target="_blank" class="btn">join discord</a>
   </div>
-
-  <div id="viewer-display">
-    <img id="eye-img" src="https://media.discordapp.net/attachments/1227453510585417728/1383757117416276058/blink.png" alt="eye status">
-    <span id="viewer-count">0 viewers online</span>
-  </div>
-
   <script>
-    const eyeImg = document.getElementById('eye-img');
-    const viewerText = document.getElementById('viewer-count');
-
-    const openEye = "https://media.discordapp.net/attachments/1227453510585417728/1383757117139324998/new.png";
-    const closedEye = "https://media.discordapp.net/attachments/1227453510585417728/1383757117416276058/blink.png";
-
-    const bc = new BroadcastChannel('viewer-status');
-    const id = Math.random().toString(36).substr(2, 9);
-    let others = new Set();
-
-    function updateDisplay(count) {
-      viewerText.textContent = `${count} viewer${count === 1 ? '' : 's'} online`;
-      eyeImg.src = count > 0 ? openEye : closedEye;
-    }
-
-    bc.postMessage({ type: 'join', id });
-
-    bc.addEventListener('message', e => {
-      const { type, id: otherId, count } = e.data;
-      if (type === 'join') {
-        others.add(otherId);
-        sendCount();
-      } else if (type === 'leave') {
-        others.delete(otherId);
-        sendCount();
-      } else if (type === 'count') {
-        updateDisplay(count);
-      }
-    });
-
-    window.addEventListener('beforeunload', () => {
-      bc.postMessage({ type: 'leave', id });
-    });
-
-    function sendCount() {
-      const total = others.size + 1;
-      bc.postMessage({ type: 'count', count: total });
-    }
   </script>
 </body>
 </html>
