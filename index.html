@@ -2,245 +2,163 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RSite - Under Development</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:wght@400;900&display=swap" rel="stylesheet" />
+  <meta name="description" content="Join our Discord to be notified when we launch." />
+  <meta property="og:title" content="RSite - Under Development" />
+  <meta property="og:description" content="Join our Discord to be notified when we launch." />
+  <meta property="og:image" content="https://cdn.discordapp.com/attachments/1227453510585417728/1383749577659646052/New_Project_18.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/" />
   <link rel="icon" href="https://cdn.discordapp.com/attachments/1227453510585417728/1383749577659646052/New_Project_18.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Raleway:wght@400;900&display=swap" rel="stylesheet" />
   <style>
     html, body {
-      margin: 0; padding: 0;
-      height: 100%; width: 100%;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: radial-gradient(ellipse at center, #130018 0%, #000000 100%);
+      color: #d9ceff;
       font-family: 'Orbitron', 'Raleway', sans-serif;
-      background: #000;
       overflow: hidden;
-      user-select: none;
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, #1a001f 0%, #000 100%);
-      z-index: 0;
-    }
-    canvas#bg-animation {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 0;
-      pointer-events: none;
-    }
-    #particles-js {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      z-index: 1;
-      pointer-events: none;
-    }
+
     .container {
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 50vw;
+      width: 90%;
       max-width: 600px;
-      padding: 3rem 3.5rem;
+      padding: 3rem;
       background: rgba(30, 0, 40, 0.4);
       backdrop-filter: blur(24px);
       border-radius: 28px;
+      text-align: center;
+      border: 1.5px solid rgba(204, 102, 255, 0.7);
       box-shadow:
         0 0 40px 5px rgba(204, 102, 255, 0.45),
         0 0 90px 25px rgba(153, 0, 255, 0.25);
-      text-align: center;
-      z-index: 2;
-      user-select: none;
-      border: 1.5px solid rgba(204, 102, 255, 0.7);
     }
+
     h1 {
-      font-size: 3rem;
+      font-size: 2.5rem;
       margin-bottom: 1.2rem;
       color: #cc66ff;
       text-shadow:
         0 0 15px #cc66ff,
-        0 0 45px #9900ff,
-        0 0 90px #9900ff;
-      animation: flicker 1.6s infinite alternate ease-in-out;
-      font-weight: 900;
-      letter-spacing: 0.04em;
+        0 0 45px #9900ff;
     }
-    @keyframes flicker {
-      0% {
-        opacity: 0.85;
-        text-shadow: 0 0 8px #cc66ff, 0 0 30px #9900ff;
-      }
-      50% {
-        opacity: 1;
-        text-shadow: 0 0 20px #cc66ff, 0 0 75px #9900ff;
-      }
-      100% {
-        opacity: 0.85;
-        text-shadow: 0 0 8px #cc66ff, 0 0 30px #9900ff;
-      }
-    }
+
     p {
-      font-size: 1.3rem;
-      color: #d9ceff;
-      margin-bottom: 2.2rem;
-      font-weight: 500;
-      text-shadow: 0 0 5px rgba(204, 102, 255, 0.5);
-    }
-    .btn {
       font-size: 1.2rem;
-      padding: 15px 48px;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      font-size: 1.2rem;
       border-radius: 12px;
       background: linear-gradient(135deg, #cc66ff, #9900ff);
       color: #000;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-weight: bold;
       text-decoration: none;
-      box-shadow:
-        0 0 25px #cc66ff,
-        0 0 70px #9900ff;
-      transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+      transition: 0.3s;
       display: inline-block;
-      user-select: none;
-      border: none;
-      cursor: pointer;
-      outline-offset: 4px;
-      outline-color: transparent;
     }
-    .btn:hover,
-    .btn:focus {
+
+    .btn:hover {
       background: linear-gradient(135deg, #9f00ff, #6500cc);
       color: #fff;
-      box-shadow:
-        0 0 35px #ff00ff,
-        0 0 120px #cc00ff;
-      transform: scale(1.08);
-      outline-color: #cc66ff;
-      outline-style: solid;
-      outline-width: 2px;
     }
-    .btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 0 20px #cc66ff;
+
+    #eye {
+      margin-top: 2rem;
+      width: 64px;
+      height: auto;
+      filter: drop-shadow(0 0 8px #9900ff);
+      transition: 0.3s ease;
     }
+
     @media (max-width: 768px) {
       .container {
-        width: 90vw;
-        padding: 2rem 2.5rem;
+        padding: 2rem;
       }
+
       h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
+
       p {
-        font-size: 1.1rem;
-      }
-      .btn {
-        padding: 12px 36px;
         font-size: 1rem;
+      }
+
+      .btn {
+        padding: 12px 32px;
+        font-size: 1rem;
+      }
+
+      #eye {
+        width: 48px;
       }
     }
   </style>
 </head>
 <body>
-  <canvas id="bg-animation"></canvas>
-  <div id="particles-js"></div>
-  <div class="container" role="main" aria-label="Under development notification">
-    <h1>⚒️ We're currently under development!</h1>
-    <p>Join the Discord to be notified when we're live.</p>
-    <a href="https://discord.gg/WzkFvAtBKY" target="_blank" rel="noopener noreferrer" class="btn" role="button" tabindex="0">Join Discord</a>
+  <div class="container">
+    <h1>⚒️ we're currently under development!</h1>
+    <p>join the discord to be notified when we're live.</p>
+    <a href="https://discord.gg/YOURSERVER" target="_blank" class="btn">join discord</a>
+    <img id="eye" src="https://media.discordapp.net/attachments/1227453510585417728/1383757117416276058/blink.png" alt="Viewer Eye" />
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 100, density: { enable: true, value_area: 800 } },
-        color: { value: "#cc66ff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.3, anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false } },
-        size: { value: 3, random: true, anim: { enable: true, speed: 4, size_min: 0.5, sync: false } },
-        line_linked: {
-          enable: true,
-          distance: 140,
-          color: "#9900ff",
-          opacity: 0.25,
-          width: 1
-        },
-        move: {
-          enable: true,
-          speed: 1.2,
-          direction: "none",
-          random: false,
-          straight: false,
-          out_mode: "bounce",
-          bounce: true,
-          attract: { enable: false, rotateX: 600, rotateY: 1200 }
-        }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: false },
-          onclick: { enable: true, mode: "push" },
-          resize: true
-        },
-        modes: {
-          push: { particles_nb: 4 }
-        }
-      },
-      retina_detect: true
-    });
-  </script>
-  <script>
-    const canvas = document.getElementById('bg-animation');
-    const ctx = canvas.getContext('2d');
+    const eyeImg = document.getElementById('eye');
+    let viewerCount = 0;
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-
-    const colors = [
-      { r: 48,  g: 0,  b: 80  }, // Dark Purple
-      { r: 139, g: 0,  b: 69  }, // Dark Pink
-      { r: 120, g: 0,  b: 0   }, // Dark Red
-      { r: 139, g: 0,  b: 69  }, // Dark Pink again
-      { r: 48,  g: 0,  b: 80  }  // Dark Purple again
-    ];
-
-    let step = 0;
-    let progress = 0;
-    const speed = 0.005;
-
-    function lerp(start, end, t) {
-      return start + (end - start) * t;
+    function updateEye(open) {
+      eyeImg.src = open
+        ? "https://media.discordapp.net/attachments/1227453510585417728/1383757117139324998/new.png"
+        : "https://media.discordapp.net/attachments/1227453510585417728/1383757117416276058/blink.png";
     }
 
-    function animateBackground() {
-      let c1 = colors[step];
-      let c2 = colors[step + 1];
+    const channel = new BroadcastChannel('viewer-status');
+    channel.postMessage({ type: 'join' });
 
-      let r = Math.floor(lerp(c1.r, c2.r, progress));
-      let g = Math.floor(lerp(c1.g, c2.g, progress));
-      let b = Math.floor(lerp(c1.b, c2.b, progress));
-
-      ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      progress += speed;
-      if (progress >= 1) {
-        progress = 0;
-        step++;
-        if (step >= colors.length - 1) step = 0;
+    channel.addEventListener('message', (event) => {
+      if (event.data.type === 'count') {
+        viewerCount = event.data.count;
+        updateEye(viewerCount > 0);
       }
+    });
 
-      requestAnimationFrame(animateBackground);
+    let localCount = 0;
+    const bc = new BroadcastChannel('viewer-status');
+
+    let others = new Set();
+
+    bc.addEventListener('message', (e) => {
+      const { type, id } = e.data;
+      if (type === 'join') {
+        others.add(id);
+        sendCount();
+      } else if (type === 'leave') {
+        others.delete(id);
+        sendCount();
+      }
+    });
+
+    const id = Math.random().toString(36).substr(2, 9);
+    bc.postMessage({ type: 'join', id });
+
+    window.addEventListener('beforeunload', () => {
+      bc.postMessage({ type: 'leave', id });
+    });
+
+    function sendCount() {
+      const total = others.size + 1;
+      bc.postMessage({ type: 'count', count: total });
     }
-
-    animateBackground();
-
-    window.addEventListener('resize', resizeCanvas);
   </script>
 </body>
 </html>
