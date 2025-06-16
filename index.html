@@ -1,467 +1,296 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>rsite studios - under development</title>
-  <meta name="description" content="rsite studios plugin store - join discord for updates" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Raleway:wght@400;900&display=swap');
-
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      user-select: none;
-    }
-    html, body {
-      height: 100%;
-      background: #000;
-      color: #d8cbff; 
-      font-family: 'Raleway', sans-serif;
-      overflow: hidden;
-      text-transform: lowercase !important;
-    }
-    a {
-      color: #b885ff;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-    a:hover {
-      color: #e0d4ff;
-    }
-
-    #bg-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 0;
-      background: radial-gradient(ellipse at center, #120019 0%, #000000 90%);
-    }
-
-    #dev-lock {
-      position: fixed;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(56, 17, 79, 0.8);
-      border: 2px solid #b885ffcc;
-      border-radius: 24px;
-      box-shadow:
-        0 0 40px 12px #b885ffcc,
-        inset 0 0 20px 4px #d1bbffaa;
-      padding: 3rem 2.5rem;
-      max-width: 400px;
-      width: 90vw;
-      z-index: 10;
-      text-align: center;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-
-    #dev-lock h1 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      color: #d8cbff;
-      text-shadow: 0 0 20px #d8cbffcc;
-    }
-
-    #dev-lock p {
-      margin-bottom: 2rem;
-      font-weight: 400;
-      font-size: 1.2rem;
-      color: #cbbaffcc;
-      letter-spacing: 0.06em;
-      line-height: 1.4;
-    }
-
-    #dev-lock input {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      font-size: 1.2rem;
-      border-radius: 12px;
-      border: none;
-      outline: none;
-      background: rgba(255,255,255,0.1);
-      color: #ddd;
-      text-align: center;
-      letter-spacing: 0.1em;
-      transition: background 0.3s ease;
-    }
-    #dev-lock input::placeholder {
-      color: #aaa;
-    }
-    #dev-lock input:focus {
-      background: rgba(255,255,255,0.25);
-      box-shadow: 0 0 15px #b885ffbb;
-      color: #fff;
-    }
-    #dev-lock button {
-      margin-top: 1.6rem;
-      padding: 0.85rem 2rem;
-      font-weight: 900;
-      font-size: 1.25rem;
-      color: #120019;
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      border-radius: 14px;
-      border: none;
-      cursor: pointer;
-      box-shadow:
-        0 0 25px #b885ffcc,
-        0 6px 20px #9e66ffbb;
-      transition: all 0.3s ease;
-      text-transform: lowercase !important;
-      user-select: none;
-    }
-    #dev-lock button:hover {
-      background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
-      color: #fff;
-      box-shadow:
-        0 0 35px #d6abffdd,
-        0 0 55px #7e3effdd;
-      outline: none;
-    }
-    #dev-lock button:active {
-      transform: scale(0.95);
-    }
-
-    #full-site {
-      display: none;
-      height: 100vh;
-      width: 100vw;
-      overflow-y: auto;
-      padding: 4rem 3rem;
-      background: linear-gradient(135deg, #120019 0%, #000000 100%);
-      color: #d8cbff;
-      font-family: 'Raleway', sans-serif;
-      z-index: 5;
-      position: relative;
-    }
-
-    #full-site header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 3rem;
-    }
-    #full-site header h1 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      font-size: 3.2rem;
-      color: #b885ff;
-      text-shadow:
-        0 0 15px #b885ffcc,
-        0 0 25px #a660ffcc,
-        0 0 45px #d8cbffcc;
-      letter-spacing: 0.04em;
-      user-select: none;
-    }
-
-    #full-site nav a {
-      font-weight: 700;
-      font-size: 1.2rem;
-      margin-left: 2rem;
-      padding: 0.8rem 1.4rem;
-      border-radius: 12px;
-      background: #7e3eff;
-      box-shadow:
-        0 0 20px #b885ffcc,
-        0 6px 16px #8a50ffbb;
-      color: black;
-      user-select: none;
-      transition: background 0.3s ease;
-    }
-    #full-site nav a:hover {
-      background: #b885ff;
-      color: black;
-      box-shadow:
-        0 0 30px #d6abffdd,
-        0 0 50px #b885ffdd;
-    }
-
-    #full-site main {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    #full-site main h2 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      color: #cbbaff;
-      text-shadow: 0 0 20px #b885ffcc;
-    }
-
-    #full-site main p {
-      font-weight: 400;
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      color: #cbbaffcc;
-    }
-
-    .product-card {
-      background: rgba(120, 80, 255, 0.15);
-      border-radius: 18px;
-      box-shadow:
-        0 0 30px 8px #b885ff99,
-        inset 0 0 20px 6px #d1bbff99;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2rem;
-      transition: box-shadow 0.3s ease;
-      cursor: pointer;
-      user-select: none;
-    }
-    .product-card:hover {
-      box-shadow:
-        0 0 45px 15px #d8cbffcc,
-        inset 0 0 30px 10px #f0e7ffcc;
-    }
-    .product-card h3 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 900;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      color: #e0d4ff;
-      text-shadow: 0 0 15px #cbbaffcc;
-    }
-    .product-card p {
-      font-weight: 400;
-      font-size: 1rem;
-      color: #cbbaffcc;
-      line-height: 1.4;
-    }
-    .product-card a.btn-buy {
-      display: inline-block;
-      margin-top: 1rem;
-      padding: 0.7rem 1.8rem;
-      font-weight: 700;
-      font-size: 1.1rem;
-      border-radius: 12px;
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      color: black;
-      box-shadow:
-        0 0 20px #b885ffcc,
-        0 6px 16px #8a50ffbb;
-      text-transform: lowercase !important;
-      user-select: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .product-card a.btn-buy:hover {
-      background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
-      color: #fff;
-      box-shadow:
-        0 0 35px #d6abffdd,
-        0 0 55px #7e3effdd;
-    }
-    .product-card a.btn-buy:active {
-      transform: scale(0.95);
-    }
-
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>rsitek</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Audiowide&display=swap" rel="stylesheet" />
+<style>
+  * {
+    margin:0; padding:0; box-sizing:border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html, body {
+    height:100%;
+    background:#000;
+    color:#bb33ff;
+    font-family:'orbitron', 'audiowide', monospace, sans-serif;
+    overflow:hidden;
+    text-transform: lowercase !important;
+  }
+  #background-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    background: #000;
+    display: block;
+  }
+  #dev-lock {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    z-index: 20;
+  }
+  #dev-lock h1 {
+    font-family: 'audiowide', monospace;
+    font-size: 4rem;
+    color: #bb33ff;
+    letter-spacing: 0.15em;
+    user-select:none;
+    animation: flicker 3s infinite alternate ease-in-out;
+  }
+  #dev-lock input {
+    font-family: 'orbitron', monospace;
+    font-size: 2rem;
+    padding: 1rem 2.5rem;
+    border-radius: 12px;
+    border: 2px solid #bb33ff;
+    background: transparent;
+    color: #bb33ff;
+    outline: none;
+    width: 380px;
+    max-width: 90vw;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+  #dev-lock input::placeholder {
+    color: #bb33ff88;
+    letter-spacing: 0.1em;
+  }
+  #dev-lock input:focus {
+    border-color: #ff33ff;
+    background-color: #110011;
+  }
+  #dev-lock button {
+    font-family: 'audiowide', monospace;
+    font-size: 1.8rem;
+    background: linear-gradient(90deg, #bb33ff, #ff33ff, #bb33ff);
+    background-size: 200% 200%;
+    color: #000;
+    padding: 1rem 3rem;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    letter-spacing: 0.12em;
+    user-select:none;
+    animation: gradientShift 3s ease infinite;
+    transition: transform 0.2s ease;
+  }
+  #dev-lock button:hover {
+    transform: scale(1.05);
+  }
+  #full-site {
+    display: none;
+    position: relative;
+    z-index: 10;
+    padding: 3rem;
+    max-width: 1000px;
+    margin: 5vh auto;
+    background: #110011dd;
+    border-radius: 24px;
+    box-shadow: 0 0 60px #bb33ff99;
+    font-family: 'audiowide', monospace;
+    text-align: center;
+    user-select:none;
+    text-transform: lowercase !important;
+  }
+  #full-site h1 {
+    font-size: 4.4rem;
+    color: #ff77ff;
+    text-shadow: 0 0 20px #bb33ff;
+    margin-bottom: 1rem;
+  }
+  #full-site p {
+    font-size: 1.8rem;
+    color: #eee;
+    margin-bottom: 2rem;
+  }
+  #full-site a.btn {
+    font-family: 'orbitron', monospace;
+    display: inline-block;
+    padding: 1.4rem 3.2rem;
+    background: linear-gradient(90deg, #bb33ff, #ff33ff, #bb33ff);
+    background-size: 200% 200%;
+    color: #000;
+    text-decoration: none;
+    font-weight: 900;
+    border-radius: 16px;
+    box-shadow: 0 0 22px #bb33ffcc;
+    letter-spacing: 0.14em;
+    animation: gradientShift 4s ease infinite;
+    transition: transform 0.2s ease;
+  }
+  #full-site a.btn:hover {
+    transform: scale(1.08);
+  }
+  #under-dev {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(17, 0, 17, 0.7);
+    border: 2px dashed #ff33ff;
+    color: #ffccff;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    letter-spacing: 0.08em;
+  }
+  @keyframes flicker {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.7;}
+  }
+  @keyframes gradientShift {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+  }
+</style>
 </head>
 <body>
+<canvas id="background-canvas"></canvas>
+<div id="dev-lock">
+  <h1>enter password</h1>
+  <input type="password" id="password-input" placeholder="type here" />
+  <button id="unlock-btn">unlock</button>
+</div>
+<div id="full-site">
+  <h1>roblox scripts, rsite.</h1>
+  <p>full site unlocked. browse the greatest executors or scripts designed for roblox.</p>
+  <a href="#" class="btn">download plugins</a>
+  <div id="under-dev">this section is still under development. expect insane visual and script-level upgrades soon.</div>
+</div>
+<script>
+  const devLock = document.getElementById('dev-lock');
+  const fullSite = document.getElementById('full-site');
+  const passInput = document.getElementById('password-input');
+  const unlockBtn = document.getElementById('unlock-btn');
+  const encryptedPass = [9, 0, 3, 3, 19, 31, 0, 25, 9, 31, 26, 27, 0, 17, 20, 23];
+  const key = 42;
 
-  <canvas id="bg-canvas"></canvas>
+  const decrypt = (arr, key) => String.fromCharCode(...arr.map(x => x ^ key));
+  const realPass = decrypt(encryptedPass, key);
 
-  <div id="dev-lock" role="dialog" aria-modal="true" aria-labelledby="dev-lock-title" aria-describedby="dev-lock-desc">
-    <h1 id="dev-lock-title">⚒️ rsite studios under development</h1>
-    <p id="dev-lock-desc">enter the secret key to unlock the full store</p>
-    <input type="password" id="dev-pass" placeholder="enter key..." autocomplete="off" />
-    <button id="dev-submit">unlock</button>
-  </div>
-
-  <div id="full-site" aria-hidden="true" tabindex="-1">
-    <header>
-      <h1>rsite studios</h1>
-      <nav>
-        <a href="#" onclick="alert('coming soon!')">plugins</a>
-        <a href="#" onclick="alert('coming soon!')">support</a>
-        <a href="#" onclick="alert('coming soon!')">discord</a>
-      </nav>
-    </header>
-
-    <main>
-      <h2>featured plugins</h2>
-
-      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
-        <h3>plugin alpha</h3>
-        <p>a revolutionary plugin for ultimate studio productivity. lightning fast, stable, and sleek.</p>
-        <a href="#" class="btn-buy" onclick="alert('plugin alpha coming soon!')">buy now</a>
-      </div>
-
-      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
-        <h3>plugin beta</h3>
-        <p>enhance your workflow with the beta plugin — fully customizable, low memory, and blazing fast.</p>
-        <a href="#" class="btn-buy" onclick="alert('plugin beta coming soon!')">buy now</a>
-      </div>
-
-      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
-        <h3>plugin gamma</h3>
-        <p>the all-in-one plugin suite for advanced studio users who demand the best.</p>
-        <a href="#" class="btn-buy" onclick="alert('plugin gamma coming soon!')">buy now</a>
-      </div>
-    </main>
-  </div>
-
-  <script>
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let width, height, particles;
-
-    function resize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * devicePixelRatio;
-      canvas.height = height * devicePixelRatio;
-      canvas.style.width = width + 'px';
-      canvas.style.height = height + 'px';
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(devicePixelRatio, devicePixelRatio);
+  function unlockSite() {
+    if (passInput.value.trim().toLowerCase() === realPass) {
+      devLock.style.display = 'none';
+      fullSite.style.display = 'block';
+    } else {
+      passInput.value = '';
+      passInput.placeholder = 'incorrect - try again';
     }
+  }
 
-    class Particle {
-      constructor() {
-        this.reset();
-      }
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = 1 + Math.random() * 2;
-        this.baseAlpha = 0.15 + Math.random() * 0.35;
-        this.alpha = this.baseAlpha;
-        this.pulse = Math.random() * Math.PI * 2;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.pulse += 0.04;
-        this.alpha = this.baseAlpha + Math.sin(this.pulse) * 0.08;
+  unlockBtn.addEventListener('click', unlockSite);
+  passInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlockSite();
+  });
 
-        if (this.x < 0) this.x = width;
-        else if (this.x > width) this.x = 0;
-        if (this.y < 0) this.y = height;
-        else if (this.y > height) this.y = 0;
-      }
-      draw(ctx) {
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(216, 203, 255, ${this.alpha.toFixed(3)})`;
-        ctx.shadowColor = `rgba(184, 133, 255, 0.8)`;
-        ctx.shadowBlur = 7;
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function connectParticles(ctx, particles) {
-      const maxDist = 140;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < maxDist) {
-            const alpha = 0.25 * (1 - dist / maxDist);
-            ctx.beginPath();
-            ctx.strokeStyle = `rgba(184,133,255,${alpha.toFixed(3)})`;
-            ctx.lineWidth = 0.7;
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
-          }
-        }
-      }
-    }
-
-    function setupParticles() {
-      resize();
-      particles = [];
-      for (let i = 0; i < 120; i++) {
-        particles.push(new Particle());
-      }
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach(p => {
-        p.update();
-        p.draw(ctx);
-      });
-      connectParticles(ctx, particles);
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-      setupParticles();
-    });
-
-    setupParticles();
-    animate();
-
-
-    const _encrypted = [11, 27, 30, 7, 2, 24, 11, 26, 30, 4, 27, 12];
-    const _key = (function(){
-      let s = '';
-      const base = 65;
-      const offsets = [6, 18, 14, 20, 1, 13, 25, 11, 19, 4];
-      for(let i=0; i<offsets.length; i++) s += String.fromCharCode(base + offsets[i]);
-      return s.toLowerCase();
-    })(); 
-
-    function xorDecrypt(arr, key) {
-      let out = '';
-      for (let i = 0; i < arr.length; i++) {
-        out += String.fromCharCode(arr[i] ^ key.charCodeAt(i % key.length));
-      }
-      return out;
-    }
-
-    const PASSWORD = xorDecrypt(_encrypted, _key);
-
-    // DOM refs
-    const devLock = document.getElementById('dev-lock');
-    const passInput = document.getElementById('dev-pass');
-    const submitBtn = document.getElementById('dev-submit');
-    const fullSite = document.getElementById('full-site');
-
-    function unlockSite() {
-      const val = passInput.value.trim();
-      if (val === PASSWORD) {
+  window.addEventListener('keydown', e => {
+    if (e.key === '1') {
+      if (devLock.style.display === 'none') {
+        devLock.style.display = 'flex';
+        fullSite.style.display = 'none';
+      } else {
         devLock.style.display = 'none';
         fullSite.style.display = 'block';
-        fullSite.setAttribute('aria-hidden', 'false');
-        passInput.value = '';
-      } else {
-        alert('incorrect key. try again.');
-        passInput.value = '';
-        passInput.focus();
       }
     }
+  });
 
-    submitBtn.addEventListener('click', unlockSite);
+  const canvas = document.getElementById('background-canvas');
+  const ctx = canvas.getContext('2d');
+  let w, h, particles = [];
 
-    passInput.addEventListener('keydown', e => {
-      if (e.key === 'Enter') unlockSite();
-    });
+  function resize() {
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width = w * devicePixelRatio;
+    canvas.height = h * devicePixelRatio;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.scale(devicePixelRatio, devicePixelRatio);
+  }
 
-    window.addEventListener('keydown', e => {
-      if (e.key === '1') {
-        if (devLock.style.display === 'none') {
-          devLock.style.display = 'block';
-          fullSite.style.display = 'none';
-          fullSite.setAttribute('aria-hidden', 'true');
-          passInput.focus();
-        } else {
-          devLock.style.display = 'none';
-          fullSite.style.display = 'block';
-          fullSite.setAttribute('aria-hidden', 'false');
+  class Particle {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.vx = (Math.random() - 0.5) * 0.3;
+      this.vy = (Math.random() - 0.5) * 0.3;
+      this.size = 1 + Math.random() * 2;
+      this.alphaBase = 0.2 + Math.random() * 0.4;
+      this.alpha = this.alphaBase;
+      this.pulse = Math.random() * Math.PI * 2;
+    }
+    update() {
+      this.x += this.vx;
+      this.y += this.vy;
+      this.pulse += 0.02;
+      this.alpha = this.alphaBase + Math.sin(this.pulse) * 0.1;
+      if (this.x < 0) this.x = w;
+      else if (this.x > w) this.x = 0;
+      if (this.y < 0) this.y = h;
+      else if (this.y > h) this.y = 0;
+    }
+    draw(ctx) {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(187, 51, 255, ${this.alpha})`;
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  function connect(ctx, particles) {
+    const maxDist = 160;
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        let dx = particles[i].x - particles[j].x;
+        let dy = particles[i].y - particles[j].y;
+        let dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < maxDist) {
+          let alpha = 0.2 * (1 - dist / maxDist);
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(187,51,255,${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
         }
       }
+    }
+  }
+
+  function setup() {
+    resize();
+    particles = [];
+    for (let i = 0; i < 140; i++) particles.push(new Particle());
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    particles.forEach(p => {
+      p.update();
+      p.draw(ctx);
     });
-  </script>
+    connect(ctx, particles);
+    requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', setup);
+  setup();
+  animate();
+</script>
 </body>
 </html>
