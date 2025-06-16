@@ -3,426 +3,465 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>rsite studios - plugins hub</title>
-  <meta name="description" content="the ultimate plugin hub for studios plugins, crafted in neon purple vibes." />
+  <title>rsite studios - under development</title>
+  <meta name="description" content="rsite studios plugin store - join discord for updates" />
   <style>
-    /* Reset */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Raleway:wght@400;900&display=swap');
 
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      user-select: none;
+    }
     html, body {
       height: 100%;
-      background: #000000;
-      font-family: 'Orbitron', 'Raleway', monospace, sans-serif;
-      color: #e6e6ff;
-      user-select: none;
-      overflow-x: hidden;
+      background: #000;
+      color: #d8cbff; 
+      font-family: 'Raleway', sans-serif;
+      overflow: hidden;
       text-transform: lowercase !important;
     }
-
-    /* Neon white-purple glow */
-    :root {
-      --main-purple: #b885ff;
-      --neon-glow: #c7b3ff;
-      --glow-shadow: 0 0 8px #c7b3ff, 0 0 20px #a66fff, 0 0 40px #a66fffcc;
-    }
-
     a {
-      color: var(--main-purple);
+      color: #b885ff;
       text-decoration: none;
       transition: color 0.3s ease;
     }
     a:hover {
-      color: #d1bbff;
-      text-shadow: var(--glow-shadow);
+      color: #e0d4ff;
     }
 
-    /* Container for dev mode */
-    .dev-container {
+    #bg-canvas {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(184, 133, 255, 0.12);
-      border-radius: 20px;
-      border: 2px solid var(--main-purple);
-      box-shadow: 0 0 40px 12px var(--main-purple);
-      padding: 2.5rem 3rem;
-      max-width: 420px;
-      width: 90vw;
-      text-align: center;
-      user-select: none;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      background: radial-gradient(ellipse at center, #120019 0%, #000000 90%);
     }
-    .dev-container h1 {
+
+    #dev-lock {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(56, 17, 79, 0.8);
+      border: 2px solid #b885ffcc;
+      border-radius: 24px;
+      box-shadow:
+        0 0 40px 12px #b885ffcc,
+        inset 0 0 20px 4px #d1bbffaa;
+      padding: 3rem 2.5rem;
+      max-width: 400px;
+      width: 90vw;
+      z-index: 10;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    #dev-lock h1 {
       font-family: 'Orbitron', monospace;
       font-weight: 700;
       font-size: 3rem;
       margin-bottom: 1rem;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-      letter-spacing: 0.05em;
+      color: #d8cbff;
+      text-shadow: 0 0 20px #d8cbffcc;
     }
-    .dev-container p {
+
+    #dev-lock p {
+      margin-bottom: 2rem;
       font-weight: 400;
       font-size: 1.2rem;
-      color: #d1bbffcc;
-      margin-bottom: 1.8rem;
-      letter-spacing: 0.04em;
-      line-height: 1.3;
+      color: #cbbaffcc;
+      letter-spacing: 0.06em;
+      line-height: 1.4;
     }
-    .dev-container a.btn {
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      color: #120019;
-      padding: 14px 48px;
+
+    #dev-lock input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.1);
+      color: #ddd;
+      text-align: center;
+      letter-spacing: 0.1em;
+      transition: background 0.3s ease;
+    }
+    #dev-lock input::placeholder {
+      color: #aaa;
+    }
+    #dev-lock input:focus {
+      background: rgba(255,255,255,0.25);
+      box-shadow: 0 0 15px #b885ffbb;
+      color: #fff;
+    }
+    #dev-lock button {
+      margin-top: 1.6rem;
+      padding: 0.85rem 2rem;
       font-weight: 900;
       font-size: 1.25rem;
+      color: #120019;
+      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
       border-radius: 14px;
-      box-shadow: 0 0 20px var(--main-purple), 0 6px 16px #8a50ffbb;
-      user-select: none;
+      border: none;
       cursor: pointer;
-      text-transform: lowercase !important;
-      display: inline-block;
+      box-shadow:
+        0 0 25px #b885ffcc,
+        0 6px 20px #9e66ffbb;
       transition: all 0.3s ease;
+      text-transform: lowercase !important;
+      user-select: none;
     }
-    .dev-container a.btn:hover {
+    #dev-lock button:hover {
       background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
-      color: white;
-      box-shadow: 0 0 35px #d6abffdd, 0 0 55px #7e3effdd;
+      color: #fff;
+      box-shadow:
+        0 0 35px #d6abffdd,
+        0 0 55px #7e3effdd;
       outline: none;
     }
-    .dev-container a.btn:active {
+    #dev-lock button:active {
       transform: scale(0.95);
     }
 
-    /* Full site container */
-    .full-site {
+    #full-site {
       display: none;
-      min-height: 100vh;
-      background: #000;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-      user-select: none;
-      padding: 0 2rem 4rem;
+      height: 100vh;
+      width: 100vw;
+      overflow-y: auto;
+      padding: 4rem 3rem;
+      background: linear-gradient(135deg, #120019 0%, #000000 100%);
+      color: #d8cbff;
+      font-family: 'Raleway', sans-serif;
+      z-index: 5;
+      position: relative;
     }
 
-    /* Header */
-    header {
-      position: sticky;
-      top: 0;
-      background: #0a001a;
-      padding: 1rem 2rem;
-      box-shadow: 0 0 20px var(--main-purple);
-      z-index: 100;
+    #full-site header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      user-select: none;
-    }
-    header h1 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 2.4rem;
-      letter-spacing: 0.1em;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-    }
-    nav a {
-      margin-left: 1.6rem;
-      font-weight: 700;
-      font-size: 1.15rem;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-      cursor: pointer;
-      text-transform: lowercase !important;
-      transition: color 0.3s ease;
-    }
-    nav a:hover {
-      color: #d1bbff;
-      text-shadow: 0 0 25px #c2a2ff, 0 0 50px #b285ffbb;
-    }
-
-    /* Hero section */
-    .hero {
-      margin-top: 4rem;
-      text-align: center;
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .hero h2 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 3rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 1rem;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-    }
-    .hero p {
-      font-weight: 400;
-      font-size: 1.25rem;
-      color: #d1bbffcc;
-      letter-spacing: 0.04em;
-      line-height: 1.4;
-      max-width: 540px;
-      margin-left: auto;
-      margin-right: auto;
       margin-bottom: 3rem;
     }
-    .hero a.cta-btn {
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      color: #120019;
-      padding: 16px 64px;
+    #full-site header h1 {
+      font-family: 'Orbitron', monospace;
       font-weight: 900;
-      font-size: 1.3rem;
-      border-radius: 18px;
-      box-shadow: 0 0 30px var(--main-purple), 0 8px 24px #8a50ffbb;
+      font-size: 3.2rem;
+      color: #b885ff;
+      text-shadow:
+        0 0 15px #b885ffcc,
+        0 0 25px #a660ffcc,
+        0 0 45px #d8cbffcc;
+      letter-spacing: 0.04em;
       user-select: none;
-      cursor: pointer;
-      text-transform: lowercase !important;
-      display: inline-block;
-      transition: all 0.3s ease;
-    }
-    .hero a.cta-btn:hover {
-      background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
-      color: white;
-      box-shadow: 0 0 45px #d6abffdd, 0 0 65px #7e3effdd;
-      outline: none;
-    }
-    .hero a.cta-btn:active {
-      transform: scale(0.95);
     }
 
-    /* Sections */
-    section {
+    #full-site nav a {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-left: 2rem;
+      padding: 0.8rem 1.4rem;
+      border-radius: 12px;
+      background: #7e3eff;
+      box-shadow:
+        0 0 20px #b885ffcc,
+        0 6px 16px #8a50ffbb;
+      color: black;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    #full-site nav a:hover {
+      background: #b885ff;
+      color: black;
+      box-shadow:
+        0 0 30px #d6abffdd,
+        0 0 50px #b885ffdd;
+    }
+
+    #full-site main {
       max-width: 900px;
-      margin: 4rem auto;
-      padding: 0 1rem;
-      text-align: center;
-    }
-    section h3 {
-      font-family: 'Orbitron', monospace;
-      font-weight: 700;
-      font-size: 2.1rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 2rem;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-    }
-    section p {
-      font-weight: 400;
-      font-size: 1.15rem;
-      color: #d1bbffcc;
-      line-height: 1.45;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      letter-spacing: 0.03em;
-      margin-bottom: 2rem;
+      margin: 0 auto;
     }
 
-    /* Plugin cards */
-    .plugins-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 2rem;
-      padding-bottom: 2rem;
-    }
-    .plugin-card {
-      background: #120022;
-      border-radius: 20px;
-      box-shadow: 0 0 25px #7e3effaa inset, 0 0 25px #b885ffbb;
-      padding: 2rem 1.5rem;
-      color: #d1bbffcc;
-      text-align: left;
-      user-select: none;
-      transition: box-shadow 0.3s ease;
-    }
-    .plugin-card:hover {
-      box-shadow: 0 0 35px #b885ffcc inset, 0 0 35px #d1bbffcc;
-    }
-    .plugin-card h4 {
+    #full-site main h2 {
       font-family: 'Orbitron', monospace;
       font-weight: 700;
-      font-size: 1.5rem;
-      margin-bottom: 0.6rem;
-      color: var(--main-purple);
-      text-shadow: var(--glow-shadow);
-      letter-spacing: 0.03em;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #cbbaff;
+      text-shadow: 0 0 20px #b885ffcc;
     }
-    .plugin-card p {
+
+    #full-site main p {
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      color: #cbbaffcc;
+    }
+
+    .product-card {
+      background: rgba(120, 80, 255, 0.15);
+      border-radius: 18px;
+      box-shadow:
+        0 0 30px 8px #b885ff99,
+        inset 0 0 20px 6px #d1bbff99;
+      padding: 1.8rem 2rem;
+      margin-bottom: 2rem;
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .product-card:hover {
+      box-shadow:
+        0 0 45px 15px #d8cbffcc,
+        inset 0 0 30px 10px #f0e7ffcc;
+    }
+    .product-card h3 {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #e0d4ff;
+      text-shadow: 0 0 15px #cbbaffcc;
+    }
+    .product-card p {
       font-weight: 400;
       font-size: 1rem;
-      color: #cfc7ffcc;
-      letter-spacing: 0.02em;
+      color: #cbbaffcc;
+      line-height: 1.4;
     }
-    .plugin-card a.download-btn {
+    .product-card a.btn-buy {
       display: inline-block;
-      margin-top: 1.2rem;
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      color: #120019;
-      padding: 12px 28px;
+      margin-top: 1rem;
+      padding: 0.7rem 1.8rem;
       font-weight: 700;
-      border-radius: 14px;
-      box-shadow: 0 0 18px var(--main-purple), 0 6px 12px #8a50ffbb;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
+      color: black;
+      box-shadow:
+        0 0 20px #b885ffcc,
+        0 6px 16px #8a50ffbb;
       text-transform: lowercase !important;
+      user-select: none;
       cursor: pointer;
       transition: all 0.3s ease;
-      text-decoration: none;
-      user-select: none;
     }
-    .plugin-card a.download-btn:hover {
+    .product-card a.btn-buy:hover {
       background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
-      color: white;
-      box-shadow: 0 0 30px #d6abffdd, 0 0 50px #7e3effdd;
+      color: #fff;
+      box-shadow:
+        0 0 35px #d6abffdd,
+        0 0 55px #7e3effdd;
     }
-    .plugin-card a.download-btn:active {
+    .product-card a.btn-buy:active {
       transform: scale(0.95);
     }
 
-    /* Footer */
-    footer {
-      margin-top: 6rem;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #5e4a99;
-      user-select: none;
-      letter-spacing: 0.1em;
-      text-transform: lowercase !important;
-    }
-    footer a {
-      color: #7d5dff;
-      text-decoration: underline;
-    }
-    footer a:hover {
-      color: #b0a1ff;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.9rem;
-      }
-      nav a {
-        margin-left: 1rem;
-        font-size: 1rem;
-      }
-      .hero h2 {
-        font-size: 2.2rem;
-      }
-      .hero p {
-        font-size: 1rem;
-      }
-      .plugin-card h4 {
-        font-size: 1.3rem;
-      }
-    }
   </style>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Raleway:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-<!-- Under Development Frame -->
-<div class="dev-container" id="dev-container">
-  <h1>⚒️ we're currently under development</h1>
-  <p>join our discord to be notified when we're live</p>
-  <a href="https://discord.gg/WzkFvAtBKY" target="_blank" rel="noopener noreferrer" class="btn">join discord</a>
-</div>
+  <canvas id="bg-canvas"></canvas>
 
-<!-- Full site hidden by default -->
-<div class="full-site" id="full-site" role="main" aria-label="main website content">
+  <div id="dev-lock" role="dialog" aria-modal="true" aria-labelledby="dev-lock-title" aria-describedby="dev-lock-desc">
+    <h1 id="dev-lock-title">⚒️ rsite studios under development</h1>
+    <p id="dev-lock-desc">enter the secret key to unlock the full store</p>
+    <input type="password" id="dev-pass" placeholder="enter key..." autocomplete="off" />
+    <button id="dev-submit">unlock</button>
+  </div>
 
-  <header>
-    <h1>rsite studios</h1>
-    <nav>
-      <a href="#home" onclick="scrollToSection(event, 'home')">home</a>
-      <a href="#plugins" onclick="scrollToSection(event, 'plugins')">plugins</a>
-      <a href="#about" onclick="scrollToSection(event, 'about')">about</a>
-      <a href="#contact" onclick="scrollToSection(event, 'contact')">contact</a>
-    </nav>
-  </header>
+  <div id="full-site" aria-hidden="true" tabindex="-1">
+    <header>
+      <h1>rsite studios</h1>
+      <nav>
+        <a href="#" onclick="alert('coming soon!')">plugins</a>
+        <a href="#" onclick="alert('coming soon!')">support</a>
+        <a href="#" onclick="alert('coming soon!')">discord</a>
+      </nav>
+    </header>
 
-  <section id="home" class="hero">
-    <h2>welcome to rsite studios</h2>
-    <p>the premier destination for the hottest and most innovative studios plugins, crafted with neon purple vibes and black elegance. unlock the future of studio plugins here.</p>
-    <a href="#plugins" class="cta-btn" onclick="scrollToSection(event, 'plugins')">explore plugins</a>
-  </section>
+    <main>
+      <h2>featured plugins</h2>
 
-  <section id="plugins">
-    <h3>featured plugins</h3>
-    <div class="plugins-grid">
-      <article class="plugin-card">
-        <h4>plugin alpha</h4>
-        <p>a blazing fast plugin that turbocharges your workflow with neon precision and sleek controls.</p>
-        <a href="#" class="download-btn" tabindex="0">download</a>
-      </article>
-      <article class="plugin-card">
-        <h4>plugin beta</h4>
-        <p>streamline your projects with this cutting-edge tool designed for modern creators who demand neon style.</p>
-        <a href="#" class="download-btn" tabindex="0">download</a>
-      </article>
-      <article class="plugin-card">
-        <h4>plugin gamma</h4>
-        <p>enhance your studio environment with real-time glow effects and smart automation features.</p>
-        <a href="#" class="download-btn" tabindex="0">download</a>
-      </article>
-    </div>
-  </section>
+      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
+        <h3>plugin alpha</h3>
+        <p>a revolutionary plugin for ultimate studio productivity. lightning fast, stable, and sleek.</p>
+        <a href="#" class="btn-buy" onclick="alert('plugin alpha coming soon!')">buy now</a>
+      </div>
 
-  <section id="about">
-    <h3>about rsite studios</h3>
-    <p>rsite studios was created to empower creators with premium plugins wrapped in a stylish neon purple aesthetic. Our mission is to fuel creativity and productivity with a futuristic edge.</p>
-  </section>
+      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
+        <h3>plugin beta</h3>
+        <p>enhance your workflow with the beta plugin — fully customizable, low memory, and blazing fast.</p>
+        <a href="#" class="btn-buy" onclick="alert('plugin beta coming soon!')">buy now</a>
+      </div>
 
-  <section id="contact">
-    <h3>contact & support</h3>
-    <p>have questions or want to collaborate? reach out via <a href="mailto:support@rsite.studios" target="_blank" rel="noopener noreferrer">email</a> or join our <a href="https://discord.gg/WzkFvAtBKY" target="_blank" rel="noopener noreferrer">discord server</a>. we're here to help.</p>
-  </section>
+      <div class="product-card" tabindex="0" role="button" aria-pressed="false">
+        <h3>plugin gamma</h3>
+        <p>the all-in-one plugin suite for advanced studio users who demand the best.</p>
+        <a href="#" class="btn-buy" onclick="alert('plugin gamma coming soon!')">buy now</a>
+      </div>
+    </main>
+  </div>
 
-  <footer>
-    &copy; 2025 rsite studios — crafted with 💜 neon vibes and black elegance.
-  </footer>
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height, particles;
 
-</div>
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * devicePixelRatio;
+      canvas.height = height * devicePixelRatio;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(devicePixelRatio, devicePixelRatio);
+    }
 
-<script>
-  const _xorStr = (str, key) => [...str].map((c,i) => String.fromCharCode(c.charCodeAt(0) ^ key.charCodeAt(i % key.length))).join('');
-  const enc = '\x04\x0f\x03\x0f\x17\x1d\x0f\x1a\x14\x10\x05\x1f\x0c\x02\x1f\x01\x11';
-  const xorKey = 'secretkey123';
-  function getPassword() {
-    return _xorStr(enc, xorKey);
-  }
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = 1 + Math.random() * 2;
+        this.baseAlpha = 0.15 + Math.random() * 0.35;
+        this.alpha = this.baseAlpha;
+        this.pulse = Math.random() * Math.PI * 2;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.pulse += 0.04;
+        this.alpha = this.baseAlpha + Math.sin(this.pulse) * 0.08;
 
-  const devContainer = document.getElementById('dev-container');
-  const fullSite = document.getElementById('full-site');
-
-  document.addEventListener('keydown', async (e) => {
-    if (e.key === '1') {
-      let input = prompt('enter admin password:');
-      if (!input) return;
-
-      if (input.toLowerCase().trim() === getPassword()) {
-        devContainer.style.display = 'none';
-        fullSite.style.display = 'block';
-        window.scrollTo(0,0);
-      } else {
-        alert('incorrect password.');
+        if (this.x < 0) this.x = width;
+        else if (this.x > width) this.x = 0;
+        if (this.y < 0) this.y = height;
+        else if (this.y > height) this.y = 0;
+      }
+      draw(ctx) {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(216, 203, 255, ${this.alpha.toFixed(3)})`;
+        ctx.shadowColor = `rgba(184, 133, 255, 0.8)`;
+        ctx.shadowBlur = 7;
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
-  });
 
-  function scrollToSection(e, id) {
-    e.preventDefault();
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  }
-</script>
+    function connectParticles(ctx, particles) {
+      const maxDist = 140;
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDist) {
+            const alpha = 0.25 * (1 - dist / maxDist);
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(184,133,255,${alpha.toFixed(3)})`;
+            ctx.lineWidth = 0.7;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
 
+    function setupParticles() {
+      resize();
+      particles = [];
+      for (let i = 0; i < 120; i++) {
+        particles.push(new Particle());
+      }
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw(ctx);
+      });
+      connectParticles(ctx, particles);
+      requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+      setupParticles();
+    });
+
+    setupParticles();
+    animate();
+
+
+    const _encrypted = [11, 27, 30, 7, 2, 24, 11, 26, 30, 4, 27, 12];
+    const _key = (function(){
+      let s = '';
+      const base = 65;
+      const offsets = [6, 18, 14, 20, 1, 13, 25, 11, 19, 4];
+      for(let i=0; i<offsets.length; i++) s += String.fromCharCode(base + offsets[i]);
+      return s.toLowerCase();
+    })(); 
+
+    function xorDecrypt(arr, key) {
+      let out = '';
+      for (let i = 0; i < arr.length; i++) {
+        out += String.fromCharCode(arr[i] ^ key.charCodeAt(i % key.length));
+      }
+      return out;
+    }
+
+    const PASSWORD = xorDecrypt(_encrypted, _key);
+
+    // DOM refs
+    const devLock = document.getElementById('dev-lock');
+    const passInput = document.getElementById('dev-pass');
+    const submitBtn = document.getElementById('dev-submit');
+    const fullSite = document.getElementById('full-site');
+
+    function unlockSite() {
+      const val = passInput.value.trim();
+      if (val === PASSWORD) {
+        devLock.style.display = 'none';
+        fullSite.style.display = 'block';
+        fullSite.setAttribute('aria-hidden', 'false');
+        passInput.value = '';
+      } else {
+        alert('incorrect key. try again.');
+        passInput.value = '';
+        passInput.focus();
+      }
+    }
+
+    submitBtn.addEventListener('click', unlockSite);
+
+    passInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') unlockSite();
+    });
+
+    window.addEventListener('keydown', e => {
+      if (e.key === '1') {
+        if (devLock.style.display === 'none') {
+          devLock.style.display = 'block';
+          fullSite.style.display = 'none';
+          fullSite.setAttribute('aria-hidden', 'true');
+          passInput.focus();
+        } else {
+          devLock.style.display = 'none';
+          fullSite.style.display = 'block';
+          fullSite.setAttribute('aria-hidden', 'false');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
