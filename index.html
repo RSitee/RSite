@@ -5,113 +5,241 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>rsite - under development</title>
   <meta name="description" content="join our discord to be notified when we're live." />
-  <meta property="og:title" content="rsite - under development" />
-  <meta property="og:description" content="join our discord to be notified when we're live." />
-  <meta property="og:image" content="https://cdn.discordapp.com/attachments/1227453510585417728/1383749577659646052/New_Project_18.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourdomain.com/" />
   <link rel="icon" href="https://cdn.discordapp.com/attachments/1227453510585417728/1383749577659646052/New_Project_18.png" type="image/png" />
-  <link href="https://fonts.googleapis.com/css2?family=orbitron:wght@700&family=raleway:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Raleway:ital,wght@0,400;0,900;1,400&display=swap" rel="stylesheet" />
   <style>
-    /* base reset */
+    /* reset + base */
     html, body {
       margin: 0; padding: 0; height: 100%;
-      background: #000000;
-      font-family: 'raleway', 'orbitron', monospace, sans-serif;
+      background: #0a001a;
+      font-family: 'Raleway', 'Orbitron', monospace, sans-serif;
       color: #b885ff;
       user-select: none;
       overflow: hidden;
       text-transform: lowercase !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
     }
-    .container {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 600px;
-      width: 90vw;
-      padding: 3rem 2rem;
+
+    /* little framed container */
+    .frame {
       background: rgba(184, 133, 255, 0.12);
-      border-radius: 24px;
-      border: 2px solid #b885ffcc;
+      border-radius: 20px;
+      border: 2.4px solid #b885ffdd;
       box-shadow:
-        0 0 40px 12px #b885ff99,
-        inset 0 0 15px 3px #b885ff55;
+        0 0 30px 12px #b885ff88,
+        inset 0 0 25px 8px #a960ffcc;
+      padding: 3rem 3.5rem;
+      max-width: 420px;
+      width: 90vw;
       text-align: center;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      user-select: text;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.6s ease;
     }
+
+    /* heading style */
     h1 {
-      margin: 0 0 1rem;
-      font-family: 'orbitron', monospace;
-      font-weight: 700;
-      font-size: 3.4rem;
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 3.6rem;
       line-height: 1.1;
-      color: #b885ff;
+      color: #c2a1ff;
       text-shadow:
-        0 0 10px #b885ffcc,
-        0 0 25px #a660ffcc,
-        0 0 40px #c8a3ffdd;
-      letter-spacing: 0.02em;
+        0 0 20px #c89bffdd,
+        0 0 40px #a05effdd,
+        0 0 80px #d7b7ffdd;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.6rem;
+      user-select: text;
     }
-    p {
-      margin: 0 0 2.4rem;
+
+    /* subtitle text */
+    p.subtitle {
       font-weight: 400;
-      font-size: 1.35rem;
-      color: #d1bbffcc;
-      letter-spacing: 0.04em;
-      line-height: 1.4;
+      font-size: 1.3rem;
+      color: #c6aaffcc;
+      letter-spacing: 0.05em;
+      margin-top: 0;
+      margin-bottom: 2.4rem;
+      user-select: text;
     }
-    a.btn {
+
+    /* button styling */
+    a.btn, button.btn {
       display: inline-block;
-      padding: 18px 56px;
+      padding: 1rem 3.2rem;
       font-size: 1.3rem;
       font-weight: 900;
-      background: linear-gradient(120deg, #b885ff 0%, #9e66ff 50%, #7e3eff 100%);
-      color: #120019;
       border-radius: 14px;
-      text-decoration: none;
-      box-shadow:
-        0 0 20px #b885ffcc,
-        0 6px 16px #8a50ffbb;
-      transition: all 0.3s ease;
-      letter-spacing: 0.1em;
-      user-select: none;
-      text-transform: lowercase !important;
       cursor: pointer;
+      background: linear-gradient(120deg, #b885ff 0%, #7e3eff 50%, #a95dff 100%);
+      color: #11001a;
+      border: none;
+      box-shadow:
+        0 0 25px #a75fffcc,
+        0 5px 22px #8036ffcc;
+      transition: all 0.33s ease;
+      text-transform: lowercase !important;
+      user-select: none;
+      font-family: 'Orbitron', monospace;
+      text-decoration: none;
     }
-    a.btn:hover,
-    a.btn:focus {
-      background: linear-gradient(120deg, #7e3eff 0%, #9e66ff 50%, #b885ff 100%);
+    a.btn:hover, button.btn:hover,
+    a.btn:focus, button.btn:focus {
+      background: linear-gradient(120deg, #9e3eff 0%, #b285ff 50%, #c49eff 100%);
       color: #fff;
       box-shadow:
-        0 0 35px #d6abffdd,
-        0 0 55px #7e3effdd;
+        0 0 38px #c499ffdd,
+        0 0 65px #ad6affdd;
       outline: none;
+      transform: scale(1.07);
     }
-    a.btn:active {
+    a.btn:active, button.btn:active {
       transform: scale(0.95);
+      box-shadow: none;
     }
+
+    /* discord link */
+    a.discord-link {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      color: #d6b0ffcc;
+      letter-spacing: 0.04em;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+      user-select: text;
+      display: inline-block;
+    }
+    a.discord-link:hover {
+      color: #fff;
+    }
+
+    /* full site wrapper */
+    #full-site {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #1b0036, #3f006f);
+      color: #d9bbff;
+      font-family: 'Raleway', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      text-align: center;
+      user-select: text;
+      z-index: 9999;
+      overflow-y: auto;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.7s ease;
+    }
+    #full-site.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+    #full-site h1 {
+      font-family: 'Orbitron', monospace;
+      font-weight: 900;
+      font-size: 5rem;
+      color: #c59bff;
+      text-shadow: 0 0 18px #b885ffcc;
+      margin-bottom: 0.5rem;
+    }
+    #full-site p {
+      font-size: 1.6rem;
+      margin: 0.4rem 0 3rem;
+      color: #cdb8ffcc;
+      letter-spacing: 0.07em;
+    }
+    #full-site a.download-btn {
+      background: linear-gradient(45deg, #ae7bff, #c59bff, #8d59ff);
+      padding: 1.4rem 4rem;
+      border-radius: 20px;
+      color: #1a002f;
+      font-weight: 900;
+      font-size: 1.7rem;
+      text-decoration: none;
+      box-shadow:
+        0 0 30px #b885ffcc,
+        0 8px 40px #914fffcc;
+      transition: all 0.3s ease;
+      user-select: none;
+      font-family: 'Orbitron', monospace;
+      text-transform: lowercase !important;
+      display: inline-block;
+    }
+    #full-site a.download-btn:hover,
+    #full-site a.download-btn:focus {
+      background: linear-gradient(45deg, #c59bff, #ae7bff, #9a6aff);
+      color: #fff;
+      box-shadow:
+        0 0 45px #d3b1ffdd,
+        0 12px 60px #a468ffdd;
+      outline: none;
+      transform: scale(1.05);
+    }
+    #full-site a.download-btn:active {
+      transform: scale(0.95);
+      box-shadow: none;
+    }
+
+    /* background canvas full viewport */
     #background-canvas {
       position: fixed;
       inset: 0;
       width: 100vw;
       height: 100vh;
-      display: block;
       z-index: 1;
-      background: #000000;
+      background: #0a001a;
+    }
+
+    /* fade in */
+    .fade-in {
+      animation: fadein 1.3s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadein {
+      to {opacity: 1;}
+    }
+
+    /* scrollbar for full site */
+    #full-site::-webkit-scrollbar {
+      width: 10px;
+    }
+    #full-site::-webkit-scrollbar-track {
+      background: #1b0036;
+    }
+    #full-site::-webkit-scrollbar-thumb {
+      background: #8a4dffcc;
+      border-radius: 10px;
     }
   </style>
 </head>
 <body>
   <canvas id="background-canvas"></canvas>
-  <main class="container" role="main" aria-label="under development notice">
-    <h1>⚒️ we're currently under development</h1>
-    <p>join the discord to be notified when we're live</p>
+
+  <main class="frame fade-in" role="main" aria-label="under development notice">
+    <h1>⚒️ under development</h1>
+    <p class="subtitle">join our discord to be notified when we're live</p>
     <a href="https://discord.gg/WzkFvAtBKY" target="_blank" rel="noopener noreferrer" class="btn">join discord</a>
   </main>
+
+  <section id="full-site" aria-hidden="true" tabindex="-1">
+    <h1>rsite studios</h1>
+    <p>admin access granted — full site unlocked.</p>
+    <a href="https://your-download-link.com" class="download-btn" target="_blank" rel="noopener noreferrer">download tool</a>
+    <p style="margin-top: 3rem; font-size: 1rem; color: #aa8affcc;">
+      if you have any questions or want updates, hit us up on <a href="https://discord.gg/WzkFvAtBKY" target="_blank" style="color:#cdaaff; text-decoration: underline;">discord</a>
+    </p>
+  </section>
 
   <script>
     const canvas = document.getElementById('background-canvas');
@@ -137,18 +265,18 @@
       reset() {
         this.x = Math.random() * w;
         this.y = Math.random() * h;
-        this.vx = (Math.random() - 0.5) * 0.22;
-        this.vy = (Math.random() - 0.5) * 0.22;
-        this.size = 1 + Math.random() * 1.4;
-        this.baseAlpha = 0.1 + Math.random() * 0.3;
+        this.vx = (Math.random() - 0.5) * 0.26;
+        this.vy = (Math.random() - 0.5) * 0.26;
+        this.size = 1.3 + Math.random() * 1.8;
+        this.baseAlpha = 0.14 + Math.random() * 0.33;
         this.alpha = this.baseAlpha;
         this.pulse = Math.random() * Math.PI * 2;
       }
       update() {
         this.x += this.vx;
         this.y += this.vy;
-        this.pulse += 0.025;
-        this.alpha = this.baseAlpha + Math.sin(this.pulse) * 0.07;
+        this.pulse += 0.027;
+        this.alpha = this.baseAlpha + Math.sin(this.pulse) * 0.11;
 
         if (this.x < 0) this.x = w;
         else if (this.x > w) this.x = 0;
@@ -158,15 +286,15 @@
       draw(ctx) {
         ctx.beginPath();
         ctx.fillStyle = `rgba(184, 133, 255, ${this.alpha.toFixed(3)})`;
-        ctx.shadowColor = `rgba(184, 133, 255, 0.7)`;
-        ctx.shadowBlur = 6;
+        ctx.shadowColor = `rgba(184, 133, 255, 0.95)`;
+        ctx.shadowBlur = 8;
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
       }
     }
 
     class Polygon {
-      constructor(cx, cy, radius, sides, angle = 0, speed = 0.001) {
+      constructor(cx, cy, radius, sides, angle = 0, speed = 0.0012) {
         this.cx = cx;
         this.cy = cy;
         this.radius = radius;
@@ -191,10 +319,10 @@
       }
       draw(ctx) {
         ctx.beginPath();
-        ctx.strokeStyle = 'rgba(184,133,255,0.18)';
-        ctx.lineWidth = 1.3;
-        ctx.shadowColor = 'rgba(184,133,255,0.7)';
-        ctx.shadowBlur = 7;
+        ctx.strokeStyle = 'rgba(184,133,255,0.17)';
+        ctx.lineWidth = 1.8;
+        ctx.shadowColor = 'rgba(184,133,255,0.9)';
+        ctx.shadowBlur = 8;
         ctx.moveTo(this.points[0].x, this.points[0].y);
         for (let i = 1; i < this.points.length; i++) {
           ctx.lineTo(this.points[i].x, this.points[i].y);
@@ -205,17 +333,17 @@
     }
 
     function connectParticles(ctx, particles) {
-      const maxDist = 140;
+      const maxDist = 138;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < maxDist) {
-            const alpha = 0.2 * (1 - dist / maxDist);
+            const alpha = 0.22 * (1 - dist / maxDist);
             ctx.beginPath();
             ctx.strokeStyle = `rgba(184,133,255,${alpha.toFixed(3)})`;
-            ctx.lineWidth = 0.65;
+            ctx.lineWidth = 0.75;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
@@ -228,13 +356,13 @@
     function setup() {
       resize();
       particles = [];
-      for (let i = 0; i < 110; i++) {
+      for (let i = 0; i < 120; i++) {
         particles.push(new Particle());
       }
       polygons = [
-        new Polygon(w / 2, h / 2, Math.min(w, h) / 3.6, 6, 0, 0.0013),
-        new Polygon(w / 2, h / 2, Math.min(w, h) / 5.6, 3, Math.PI / 4, -0.0018),
-        new Polygon(w / 2, h / 2, Math.min(w, h) / 8.8, 4, 0, 0.0024),
+        new Polygon(w / 2, h / 2, Math.min(w, h) / 3.7, 6, 0, 0.0018),
+        new Polygon(w / 2, h / 2, Math.min(w, h) / 6.6, 3, Math.PI / 5, -0.0023),
+        new Polygon(w / 2, h / 2, Math.min(w, h) / 10.3, 4, 0, 0.0032),
       ];
     }
 
@@ -261,52 +389,22 @@
     setup();
     animate();
 
-    const devNotice = document.querySelector("main.container");
-    const bgCanvas = document.getElementById("background-canvas");
+    const PASSWORD = "elskibiditytoilet";
+    const frame = document.querySelector("main.frame");
+    const fullSite = document.getElementById("full-site");
 
-    document.addEventListener("keydown", async (e) => {
-      if (e.key === "1") {
-        let userInput = prompt("enter admin password:");
-        if (!userInput) return;
-
-        try {
-          let res = await fetch("https://pastebin.com/raw/XadhU0Rk");
-          let realPassword = (await res.text()).trim();
-
-          if (userInput.trim() === realPassword) {
-            // hide dev notice and background
-            devNotice.style.display = "none";
-            bgCanvas.style.display = "none";
-
-            // show full site content
-            const fullContent = document.createElement("div");
-            fullContent.style.position = "fixed";
-            fullContent.style.inset = "0";
-            fullContent.style.background = "black";
-            fullContent.style.color = "#b885ff";
-            fullContent.style.display = "flex";
-            fullContent.style.flexDirection = "column";
-            fullContent.style.alignItems = "center";
-            fullContent.style.justifyContent = "center";
-            fullContent.style.fontFamily = "monospace";
-            fullContent.style.zIndex = "9999";
-
-            fullContent.innerHTML = `
-              <h1 style="font-size: 3rem; margin: 0;">rsite studios</h1>
-              <p style="font-size: 1.3rem; margin: 1rem 0 0;">admin access granted — full site unlocked.</p>
-              <a href="https://your-download-link.com" target="_blank" rel="noopener noreferrer"
-                style="margin-top: 2rem; padding: 1rem 2rem; background: #b885ff; color: black; border-radius: 10px; text-decoration: none; font-weight: 700;">
-                download tool
-              </a>
-            `;
-
-            document.body.appendChild(fullContent);
-          } else {
-            alert("incorrect password.");
-          }
-        } catch (err) {
-          alert("failed to fetch password.");
-          console.error(err);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "~") {
+        let input = prompt("enter admin password:");
+        if (!input) return;
+        if (input.trim().toLowerCase() === PASSWORD) {
+          frame.style.opacity = 0;
+          frame.style.pointerEvents = "none";
+          fullSite.classList.add("visible");
+          fullSite.setAttribute("aria-hidden", "false");
+          fullSite.focus();
+        } else {
+          alert("incorrect password. try again, zaddy.");
         }
       }
     });
