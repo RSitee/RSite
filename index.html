@@ -16,16 +16,15 @@
     /* base reset */
     html, body {
       margin: 0; padding: 0; height: 100%;
-      background: #000000; /* pure black background */
+      background: #000000;
       font-family: 'raleway', 'orbitron', monospace, sans-serif;
-      color: #b885ff; /* main purple */
+      color: #b885ff;
       user-select: none;
       overflow: hidden;
       text-transform: lowercase !important;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    /* container styling */
     .container {
       position: absolute;
       top: 50%; left: 50%;
@@ -33,7 +32,7 @@
       max-width: 600px;
       width: 90vw;
       padding: 3rem 2rem;
-      background: rgba(184, 133, 255, 0.12); /* very transparent purple overlay */
+      background: rgba(184, 133, 255, 0.12);
       border-radius: 24px;
       border: 2px solid #b885ffcc;
       box-shadow:
@@ -44,7 +43,6 @@
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
-    /* heading */
     h1 {
       margin: 0 0 1rem;
       font-family: 'orbitron', monospace;
@@ -58,7 +56,6 @@
         0 0 40px #c8a3ffdd;
       letter-spacing: 0.02em;
     }
-    /* paragraph */
     p {
       margin: 0 0 2.4rem;
       font-weight: 400;
@@ -67,7 +64,6 @@
       letter-spacing: 0.04em;
       line-height: 1.4;
     }
-    /* button */
     a.btn {
       display: inline-block;
       padding: 18px 56px;
@@ -98,7 +94,6 @@
     a.btn:active {
       transform: scale(0.95);
     }
-    /* background canvas */
     #background-canvas {
       position: fixed;
       inset: 0;
@@ -265,6 +260,56 @@
 
     setup();
     animate();
+
+    const devNotice = document.querySelector("main.container");
+    const bgCanvas = document.getElementById("background-canvas");
+
+    document.addEventListener("keydown", async (e) => {
+      if (e.key === "1") {
+        let userInput = prompt("enter admin password:");
+        if (!userInput) return;
+
+        try {
+          let res = await fetch("https://pastebin.com/raw/XadhU0Rk");
+          let realPassword = (await res.text()).trim();
+
+          if (userInput.trim() === realPassword) {
+            // hide dev notice and background
+            devNotice.style.display = "none";
+            bgCanvas.style.display = "none";
+
+            // show full site content
+            const fullContent = document.createElement("div");
+            fullContent.style.position = "fixed";
+            fullContent.style.inset = "0";
+            fullContent.style.background = "black";
+            fullContent.style.color = "#b885ff";
+            fullContent.style.display = "flex";
+            fullContent.style.flexDirection = "column";
+            fullContent.style.alignItems = "center";
+            fullContent.style.justifyContent = "center";
+            fullContent.style.fontFamily = "monospace";
+            fullContent.style.zIndex = "9999";
+
+            fullContent.innerHTML = `
+              <h1 style="font-size: 3rem; margin: 0;">rsite studios</h1>
+              <p style="font-size: 1.3rem; margin: 1rem 0 0;">admin access granted — full site unlocked.</p>
+              <a href="https://your-download-link.com" target="_blank" rel="noopener noreferrer"
+                style="margin-top: 2rem; padding: 1rem 2rem; background: #b885ff; color: black; border-radius: 10px; text-decoration: none; font-weight: 700;">
+                download tool
+              </a>
+            `;
+
+            document.body.appendChild(fullContent);
+          } else {
+            alert("incorrect password.");
+          }
+        } catch (err) {
+          alert("failed to fetch password.");
+          console.error(err);
+        }
+      }
+    });
   </script>
 </body>
 </html>
